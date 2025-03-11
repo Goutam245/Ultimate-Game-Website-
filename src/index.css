@@ -1,0 +1,199 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 33% 3.9%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
+
+    --primary: 241 87% 66%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 260 60% 60%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 270 60% 65%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 271 91% 65%;
+
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border selection:bg-accent/20 selection:text-accent-foreground;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .glass-card {
+    @apply bg-black/30 backdrop-blur-xl border border-white/10 rounded-xl shadow-lg;
+  }
+
+  .premium-card {
+    @apply bg-gradient-to-br from-slate-900/90 to-slate-950/90 backdrop-blur-xl border border-white/5 rounded-xl shadow-lg;
+  }
+
+  .neon-border {
+    position: relative;
+    border-radius: 0.75rem;
+  }
+
+  .neon-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--tw-gradient-stops));
+    --tw-gradient-from: theme('colors.neon.blue');
+    --tw-gradient-to: theme('colors.neon.pink');
+    --tw-gradient-stops: var(--tw-gradient-from), theme('colors.neon.purple'), var(--tw-gradient-to);
+    border-radius: inherit;
+    z-index: -1;
+    animation: rotate-glow 10s linear infinite;
+  }
+
+  .content-section {
+    @apply py-16 px-6 lg:px-8 mx-auto max-w-7xl;
+  }
+
+  .section-heading {
+    @apply text-3xl lg:text-4xl font-bold tracking-tight text-white mb-10 relative inline-block;
+  }
+
+  .section-heading::after {
+    content: '';
+    @apply block absolute -bottom-2 left-0 w-1/3 h-1 bg-gradient-to-r from-primary to-accent rounded-full;
+  }
+
+  .button-pulse {
+    animation: button-pulse 2s infinite;
+  }
+
+  @keyframes button-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(var(--primary), 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(var(--primary), 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(var(--primary), 0);
+    }
+  }
+}
+
+@layer components {
+  .game-tag {
+    @apply inline-block text-xs font-medium px-2 py-1 rounded-md bg-muted text-primary-foreground;
+  }
+
+  .nav-link {
+    @apply relative transition-colors duration-300 hover:text-primary px-3 py-2;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute left-0 -bottom-1 w-0 h-0.5 bg-primary rounded-full transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .nav-link.active {
+    @apply text-primary;
+  }
+
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .game-card {
+    @apply relative overflow-hidden rounded-xl transition-all duration-300;
+  }
+
+  .game-card-hover {
+    @apply hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/20 transition-all duration-300;
+  }
+
+  .hover-scale {
+    @apply hover:scale-105 transition-transform duration-300;
+  }
+
+  /* Button primary - fixed implementation */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium tracking-tight text-white bg-primary rounded-lg;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0.5rem;
+    overflow: hidden;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    color: white;
+    background-color: hsl(var(--primary));
+    border-radius: var(--radius);
+  }
+
+  .btn-glow {
+    @apply hover:shadow-lg hover:shadow-primary/50 transition-all duration-300;
+  }
+
+  .btn-primary span {
+    @apply relative z-10 transition-colors duration-300;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-full -translate-x-full bg-gradient-to-r from-accent to-primary skew-x-12 transition-transform duration-300 ease-out;
+  }
+
+  .btn-primary:hover::before {
+    @apply translate-x-0;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(var(--primary), 0.7);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
